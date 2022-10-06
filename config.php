@@ -1,5 +1,5 @@
 <?php
-$host = "database.cjjeevkacoc3.eu-south-1.rds.amazonaws.com";
+$host = "localhost"; //database.cjjeevkacoc3.eu-south-1.rds.amazonaws.com";
 $database = "cyberbullism";
 $username = "admin";
 $password = "AdminDB02"; //"CyberDb2022?";
