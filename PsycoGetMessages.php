@@ -1,14 +1,14 @@
 <?php
 require('config.php');
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 checkExists("psyco", $conn, $email, $password);
 
 
 // get chats
-$otherEmail = removeSQLDelimitersFrom($_GET['otherEmail']);
+$otherEmail = removeSQLDelimitersFrom($_POST['otherEmail']);
 $psyco_query = "SELECT
     user_email AS otherEmail,
     nome,

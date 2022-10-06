@@ -3,13 +3,13 @@ require('config.php');
 require('GetGravity.php');
 
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 checkExists("utente", $conn, $email, $password);
 
-$testo = removeSQLDelimitersFrom($_GET['testo']);
-$gravita = removeSQLDelimitersFrom($_GET['gravita']);
+$testo = removeSQLDelimitersFrom($_POST['testo']);
+$gravita = removeSQLDelimitersFrom($_POST['gravita']);
 
 if ($gravita == '3')
   $gravita = calcGravity($testo);

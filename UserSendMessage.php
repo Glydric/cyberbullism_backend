@@ -1,14 +1,14 @@
 <?php
 require('config.php');
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 checkExists("utente", $conn, $email, $password);
 
 //send message
-$testo = removeSQLDelimitersFrom($_GET['testo']);
-$otherEmail = removeSQLDelimitersFrom($_GET['otherEmail']);
+$testo = removeSQLDelimitersFrom($_POST['testo']);
+$otherEmail = removeSQLDelimitersFrom($_POST['otherEmail']);
 
 if (!mysqli_query($conn, "insert into messaggio(user_email, psyco_email, testo, sender) values('$email','$otherEmail', '$testo', 0)")) {
   echo (mysqli_error($conn));
