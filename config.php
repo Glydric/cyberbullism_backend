@@ -1,9 +1,9 @@
 <?php
-$server = "localhost";
+$host = "localhost";
 $database = "my_leonardomigliorelli"; //"cyberbullism";
 $username = "leonardomigliorelli"; // $database;
 $password = "#Avalleleo02@"; //"CyberDb2022?";
-$conn = mysqli_connect($servername, $username, $password, $database);
+$conn = mysqli_connect($host, $username, $password, $database);
 
 if (mysqli_connect_errno())
   die("Connection failed: " . mysqli_connect_error());
