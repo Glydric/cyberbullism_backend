@@ -2,8 +2,8 @@
 require('config.php');
 
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
   die("invalid-email");
