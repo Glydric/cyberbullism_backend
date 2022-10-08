@@ -1,5 +1,5 @@
 <?php
-$host = "localhost";
+$host = "miglio.dev";
 $database = "cyberbullism";
 $username = "admin";
 $password = "AdminDB02"; //"CyberDb2022?";
