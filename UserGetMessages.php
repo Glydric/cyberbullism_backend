@@ -1,5 +1,6 @@
 <?php
 require('config.php');
+
 // get user
 $email = removeSQLDelimitersFrom($_POST['email']);
 $password = removeSQLDelimitersFrom($_POST['password']);
@@ -13,7 +14,7 @@ $psyco_query = "SELECT
     nome,
     cognome,
     data,
-    sender,
+    send_by_user,
     gravita
 FROM
     messaggio
