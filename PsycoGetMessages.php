@@ -17,8 +17,8 @@ function getChats($conn, $email, $otherEmail)
     testo,
     data,
     gravita,
-    CASE WHEN sender = 0 THEN 1 WHEN sender = 1 THEN 0
-  END AS sender
+    CASE WHEN send_by_user = 0 THEN 1 WHEN send_by_user = 1 THEN 0
+  END AS send_by_user
   FROM
       messaggio join utente on user_email=email
   WHERE

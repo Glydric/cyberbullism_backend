@@ -10,7 +10,7 @@ checkExists("utente", $conn, $email, $password);
 $testo = removeSQLDelimitersFrom($_POST['testo']);
 $otherEmail = removeSQLDelimitersFrom($_POST['otherEmail']);
 
-if (!mysqli_query($conn, "insert into messaggio(user_email, psyco_email, testo, sender) values('$email','$otherEmail', '$testo', 0)")) {
+if (!mysqli_query($conn, "insert into messaggio(user_email, psyco_email, testo, send_by_user) values('$email','$otherEmail', '$testo', 0)")) {
   echo (mysqli_error($conn));
 }
 mysqli_close($conn);
