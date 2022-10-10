@@ -41,5 +41,5 @@ function getChats($conn, $email, $otherEmail)
 
   mysqli_free_result($result);
 };
-getChats($conn,$email,$otherEmail);
+getChats($conn, $email, $otherEmail);
 mysqli_close($conn);

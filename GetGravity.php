@@ -37,4 +37,3 @@ function calcGravity($testo)
 
     curl_close($request);
 }
-?>
