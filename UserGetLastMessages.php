@@ -15,7 +15,7 @@ $query = "SELECT
     cognome,
     testo,
 	data,
-    sender,
+    send_by_user,
     gravita
 FROM
     messaggio

@@ -25,7 +25,7 @@ JOIN utente ON user_email = email
 WHERE
     psyco_email IS NULL
     AND gravita IS NOT NULL
-    AND sender = 0
+    AND send_by_user = 0
 ORDER BY
     gravita
 DESC
