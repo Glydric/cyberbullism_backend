@@ -1,7 +1,7 @@
 <?php
-$host = "miglio.dev";
+$host = "localhost";
 $database = "cyberbullism";
-$username = "admin";
+$username = "cyber"; #"admin";
 $password = "AdminDB02"; //"CyberDb2022?";
 $conn = mysqli_connect($host, $username, $password, $database);
 
