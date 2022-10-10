@@ -4,8 +4,6 @@ require('config.php');
 $email = removeSQLDelimitersFrom($_POST['email']);
 $password = removeSQLDelimitersFrom($_POST['password']);
 checkExists("utente", $conn, $email, $password);
-mysqli_free_result($result);
-
 
 // get chats
 $otherEmail = removeSQLDelimitersFrom($_POST['otherEmail']);
