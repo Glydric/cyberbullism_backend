@@ -21,7 +21,7 @@ JOIN utente ON user_email = email
 WHERE
     data IN(
     SELECT
-        MAX(DATA)
+        MAX(data)
     FROM
         messaggio
     GROUP BY
