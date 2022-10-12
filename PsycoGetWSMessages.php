@@ -9,8 +9,8 @@ checkExists("psyco", $conn, $email, $password);
 
 function getChats($conn, $email, $otherEmail)
 {
-  // get chats
-  $psyco_query = "SELECT
+    // get chats
+    $psyco_query = "SELECT
     user_email AS otherEmail,
     nome,
     cognome,
@@ -26,22 +26,20 @@ function getChats($conn, $email, $otherEmail)
   ORDER BY DATA
   DESC
   ";
-  $result = mysqli_query($conn, $psyco_query);
+    $result = mysqli_query($conn, $psyco_query);
 
-  if (!$result) {
-    die(mysqli_error($conn));
-  }
+    if (!$result) {
+        die(mysqli_error($conn));
+    }
 
-  $rows = array();
-  while ($row = mysqli_fetch_assoc($result)) {
-    $rows[] = $row;
-  }
+    $rows = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
 
-  echo json_encode($rows);
+    echo json_encode($rows);
 
-  mysqli_free_result($result);
+    mysqli_free_result($result);
 };
 
 getChats($conn, $email, $otherEmail);
-
-mysqli_close($conn);
