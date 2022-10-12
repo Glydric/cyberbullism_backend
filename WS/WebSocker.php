@@ -3,13 +3,6 @@
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-require('../config.php');
-// get user
-$email = removeSQLDelimitersFrom($_POST['email']);
-$password = removeSQLDelimitersFrom($_POST['password']);
-$otherEmail = removeSQLDelimitersFrom($_POST['otherEmail']);
-
-checkExists("psyco", $conn, $email, $password);
 
 function getChats($conn, $email, $otherEmail)
 {
@@ -46,7 +39,7 @@ function getChats($conn, $email, $otherEmail)
     mysqli_free_result($result);
 };
 
-class Socket implements MessageComponentInterface {
+class MySocket implements MessageComponentInterface {
 
     public function __construct()
     {
@@ -74,9 +67,11 @@ class Socket implements MessageComponentInterface {
     }
 
     public function onClose(ConnectionInterface $conn) {
+        mysqli_close($conn);
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
+        echo $e;
     }
 }
 
