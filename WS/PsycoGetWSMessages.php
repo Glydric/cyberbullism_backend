@@ -3,7 +3,7 @@
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-require('config.php');
+require('../config.php');
 // get user
 $email = removeSQLDelimitersFrom($_POST['email']);
 $password = removeSQLDelimitersFrom($_POST['password']);
