@@ -4,8 +4,7 @@ use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 use MyApp\Socket;
 
-require('../config.php');
-require('WS/PsycoWS.php');
+require('PsycoWS.php');
 
 // get user
 $email = removeSQLDelimitersFrom($_POST['email']);
