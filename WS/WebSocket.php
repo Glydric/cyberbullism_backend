@@ -1,8 +1,11 @@
 <?php
 
+namespace MyApp;
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
+require('../config.php');
 
 function getChats($conn, $email, $otherEmail)
 {
