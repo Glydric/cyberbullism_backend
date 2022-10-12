@@ -1,3 +1,4 @@
 .vscode
 old/
 WS/vendor/
+WS/composer.lock
