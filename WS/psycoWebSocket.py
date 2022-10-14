@@ -2,7 +2,7 @@ import mysql.connector
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
-import tornado.websocket
+import tornado.websocket as WS
 
 connection = mysql.connector.connect(
     host="localhost",
@@ -29,12 +29,19 @@ ORDER BY DATA
 DESC
 """
 
+def getSql():
+    cursor = connection.cursor()
+    cursor.execute(query)
 
-def getHeader(self, name: str):
-    return self.request.headers.get(name)
+    for x in cursor.fetchall():
+        print(x)
 
 
-class WebSocket(tornado.websocket.WebSocketHandler):
+
+
+class WebSocket(WS.WebSocketHandler):
+    def getHeader(self, name: str):
+        return self.request.headers.get(name)
     def open(self):
         # metodo eseguito all'apertura della connessione
         print("Nuova connessione")
@@ -43,16 +50,17 @@ class WebSocket(tornado.websocket.WebSocketHandler):
         # metodo eseguito alla ricezione di un messaggio
         # la stringa 'message' rappresenta il messaggio
 
-        print(getHeader(self, "email"))
-        self.write_message("Messaggio ricevuto: %s" % message)
+        # print(getHeader(self, "email"))
+        self.write_message(r"Messaggio ricevuto: {message}")
         print("Messaggio ricevuto: %s" % message)
 
     def on_close(self):
         # metodo eseguito alla chiusura della connessione
+        # self.loop.stop()
         print("Connessione chiusa")
 
-    def check_origin(self, origin):
-        return True
+    # def check_origin(self, origin):
+    #     return True
 
 
 def make_app():
@@ -64,14 +72,6 @@ def make_app():
 
 
 if __name__ == "__main__":
-
-    cursor = connection.cursor()
-
-    cursor.execute(query)
-
-    for x in cursor.fetchall():
-        print(x)
-
     server = make_app()
     server.listen(8080)
     tornado.ioloop.IOLoop.instance().start()
