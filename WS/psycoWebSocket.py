@@ -1,8 +1,8 @@
+import mysql.connector
 import tornado.httpserver
-import tornado.websocket
 import tornado.ioloop
 import tornado.web
-import mysql.connector
+import tornado.websocket
 
 connection = mysql.connector.connect(
     host="localhost",
