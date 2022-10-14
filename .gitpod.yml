@@ -1,0 +1,13 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - name: run docker-compose
+    init: cd WS
+    command: docker-compose up && cd ..
+  - name: install python requirements
+    init: pip install -r WS/requirements.txt
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 3000 # 8080
+    onOpen: open-preview
+  - port: 8080
