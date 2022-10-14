@@ -5,10 +5,10 @@ import tornado.web
 import mysql.connector
 
 connection = mysql.connector.connect(
-    host="miglio.dev",
-    user="leomi",
-    password="DbAdmin",
+    host="localhost",
     database="cyberbullism",
+    user="cyber",
+    password="AdminDB02",
 )
 
 
@@ -16,7 +16,7 @@ def getHeader(self, name: str):
     return self.request.headers.get(name)
 
 
-class MyWS(tornado.websocket.WebSocketHandler):
+class WebSocket(tornado.websocket.WebSocketHandler):
     def open(self):
         # metodo eseguito all'apertura della connessione
         print("Nuova connessione")
@@ -41,7 +41,7 @@ def make_app():
     return tornado.httpserver.HTTPServer(
         tornado.web.Application(
             [
-                (r"/", MyWS),
+                (r"/", WebSocket),
             ]
         )
     )
