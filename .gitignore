@@ -2,3 +2,4 @@
 old/
 WS/vendor/
 WS/composer.lock
+WS/mySqlData
