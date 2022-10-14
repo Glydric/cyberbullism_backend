@@ -11,6 +11,24 @@ connection = mysql.connector.connect(
     password="AdminDB02",
 )
 
+query = """
+SELECT
+    user_email AS otherEmail,
+    nome,
+    cognome,
+    testo,
+    data,
+    gravita,
+    CASE WHEN send_by_user = 0 THEN 1 WHEN send_by_user = 1 THEN 0
+END AS send_by_user
+FROM
+    messaggio join utente on user_email=email
+WHERE
+    psyco_email = '$email' AND user_email = '$otherEmail'
+ORDER BY DATA
+DESC
+"""
+
 
 def getHeader(self, name: str):
     return self.request.headers.get(name)
@@ -38,32 +56,14 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 
 
 def make_app():
-    return tornado.httpserver.HTTPServer(
-        tornado.web.Application(
-            [
-                (r"/", WebSocket),
-            ]
-        )
+    return tornado.web.Application(
+        [
+            (r"/", WebSocket),
+        ]
     )
 
 
 if __name__ == "__main__":
-    query = """SELECT
-                    user_email AS otherEmail,
-                    nome,
-                    cognome,
-                    testo,
-                    data,
-                    gravita,
-                    CASE WHEN send_by_user = 0 THEN 1 WHEN send_by_user = 1 THEN 0
-                END AS send_by_user
-                FROM
-                    messaggio join utente on user_email=email
-                WHERE
-                    psyco_email = '$email' AND user_email = '$otherEmail'
-                ORDER BY DATA
-                DESC
-                """
 
     cursor = connection.cursor()
 
