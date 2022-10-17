@@ -6,6 +6,8 @@ tasks:
     command: docker-compose up -d && docker exec -i mysql sh -c 'exec mysql -ucyber -pAdminDB02' < cyberbullism.sql
   - name: install python requirements
     init: pip install -r WS/requirements.txt
+  - name: install php mysql
+    init: sudo apt install php-mysql -y
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
