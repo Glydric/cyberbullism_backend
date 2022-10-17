@@ -2,8 +2,8 @@
 tasks:
   - name: run mysql server
     before: cd WS
-    # init: docker-compose up -d
-    command: docker-compose up -d && docker exec -i mysql sh -c 'exec mysql -ucyber -pAdminDB02' < cyberbullism.sql
+    init: docker-compose up -d
+    command: docker exec -i mysql sh -c 'exec mysql -ucyber -pAdminDB02' < cyberbullism.sql
   - name: install python requirements
     init: pip install -r WS/requirements.txt
   - name: install php mysql
