@@ -5,12 +5,14 @@ import tornado.web
 import tornado.websocket as WS
 
 
-def getHeader(self, name: str):
-    return self.request.headers.post(name)
+def getSql(email: str, password: str, otherEmail: str) -> str:
+    arguments = {
+        "email": email,
+        "password": password,
+        "otherEmail": otherEmail,
+    }
 
-
-def getSql(email: str, password: str, otherEmail: str):
-    pass
+    return requests.post("localhost", json=arguments).text
 
 
 class WebSocket(WS.WebSocketHandler):
@@ -25,13 +27,18 @@ class WebSocket(WS.WebSocketHandler):
         # metodo eseguito alla ricezione di un messaggio
         # la stringa 'message' rappresenta il messaggio
 
-        print(getHeader(self, "email"))
+        response = getSql(
+            self.getHeader("email"),
+            self.getHeader("password"),
+            self.getHeader("psyco_email"),
+        )
+
         self.write_message(r"Messaggio ricevuto: {message}")
-        print("Messaggio ricevuto: %s" % message)
+        self.write_message(r"Risposta: {response}")
 
     def on_close(self):
         # metodo eseguito alla chiusura della connessione
-        self.loop.stop()
+        # tornado.ioloop.IOLoop.instance().stop()
         print("Connessione chiusa")
 
 
