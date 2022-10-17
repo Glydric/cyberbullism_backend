@@ -5,15 +5,18 @@ import tornado.web
 import tornado.websocket as WS
 
 
+def getHeader(self, name: str):
+    return self.request.headers.post(name)
+
+
 def getSql(email: str, password: str, otherEmail: str):
     pass
-
-
 
 
 class WebSocket(WS.WebSocketHandler):
     def getHeader(self, name: str):
         return self.request.headers.get(name)
+
     def open(self):
         # metodo eseguito all'apertura della connessione
         print("Nuova connessione")
@@ -31,7 +34,8 @@ class WebSocket(WS.WebSocketHandler):
         self.loop.stop()
         print("Connessione chiusa")
 
-def make_app():
+
+def makeApp():
     return tornado.web.Application(
         [
             (r"/", WebSocket),
@@ -40,6 +44,6 @@ def make_app():
 
 
 if __name__ == "__main__":
-    server = make_app()
+    server = makeApp()
     server.listen(8080)
     tornado.ioloop.IOLoop.instance().start()
