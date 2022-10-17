@@ -11,4 +11,6 @@ tasks:
 ports:
   - port: 3000 # 8080
     onOpen: open-preview
-  - port: 8080
+  - name: websocket
+    port: 8080
+    visibility: public
