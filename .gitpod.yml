@@ -7,6 +7,8 @@ tasks:
     init: pip install -r WS/requirements.txt
   - name: install php mysql
     init: sudo apt install php-mysql -y
+  # - name: start http server
+  #   init: python -m http.server 80
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
@@ -15,6 +17,6 @@ ports:
   - name: websocket
     port: 8080
     visibility: public
-  - name: web http
-    port: 80
-    visibility: public
+  # - name: web http
+  #   port: 80
+  #   visibility: public
