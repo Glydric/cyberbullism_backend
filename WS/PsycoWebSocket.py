@@ -1,14 +1,7 @@
-from unittest import result
 import requests
-import tornado.httpserver
-import tornado.ioloop
-import tornado.web
 import tornado.websocket as WS
 
-DbServer = "http://leonardomigliorelli.altervista.org"
-
-
-class WebSocket(WS.WebSocketHandler):
+class PsycoWebSocket(WS.WebSocketHandler):
     email: str
     password: str
     otherEmail: str
@@ -64,17 +57,3 @@ class WebSocket(WS.WebSocketHandler):
         # metodo eseguito alla chiusura della connessione
         # tornado.ioloop.IOLoop.instance().stop()
         print("Connessione chiusa")
-
-
-def makeApp():
-    return tornado.web.Application(
-        [
-            (r"/", WebSocket),
-        ]
-    )
-
-
-if __name__ == "__main__":
-    server = makeApp()
-    server.listen(8080)
-    tornado.ioloop.IOLoop.instance().start()
