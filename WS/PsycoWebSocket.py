@@ -1,6 +1,9 @@
 import requests
 import tornado.websocket as WS
 
+DbServer = "http://leonardomigliorelli.altervista.org"
+
+
 class PsycoWebSocket(WS.WebSocketHandler):
     email: str
     password: str
