@@ -10,6 +10,14 @@ class UserWebSocket(WS.WebSocketHandler):
     password: str
     otherEmail: str
 
+    def switch(self, message: str)-> str:
+        if message == "reload":
+            return self.getMessages()
+        elif message == "send":
+            return self.sendMessage()
+        else:
+            return "Request Error"
+
     def getMessages(self) -> str:
         arguments = {
             "email": self.email,
@@ -46,14 +54,8 @@ class UserWebSocket(WS.WebSocketHandler):
         # la stringa 'message' rappresenta il messaggio
 
         print(f"Messaggio ricevuto: {message}")
-
-        if message == "reload":
-
-            response = self.getMessages()
-        elif message == "send":
-            response = self.sendMessage()
-        else:
-            response = "Request Error"
+        
+        response = self.switch(message)
 
         self.write_message(f"Risposta: {response}")
 
