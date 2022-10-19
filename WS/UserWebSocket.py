@@ -10,7 +10,7 @@ class UserWebSocket(WS.WebSocketHandler):
     password: str
     otherEmail: str
 
-    def switch(self, message: str)-> str:
+    def switch(self, message: str) -> str:
         if message == "reload":
             return self.getMessages()
         elif message == "send":
@@ -26,7 +26,7 @@ class UserWebSocket(WS.WebSocketHandler):
         }
 
         result = requests.post(
-            DbServer + "/PsycoGetMessages.php",
+            DbServer + "/UserGetMessages.php",
             data=arguments,
         )
         return result.text
@@ -54,7 +54,7 @@ class UserWebSocket(WS.WebSocketHandler):
         # la stringa 'message' rappresenta il messaggio
 
         print(f"Messaggio ricevuto: {message}")
-        
+
         response = self.switch(message)
 
         self.write_message(f"Risposta: {response}")
