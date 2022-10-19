@@ -34,7 +34,7 @@ class WebSocket(WS.WebSocketHandler):
             self.getHeader("psyco_email"),
         )
 
-        self.write_message(f"Messaggio ricevuto: {message}")
+        print(f"Messaggio ricevuto: {message}")
         self.write_message(f"Risposta: {response}")
 
     def on_close(self):
