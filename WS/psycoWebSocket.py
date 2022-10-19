@@ -4,7 +4,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket as WS
 
-DbServer = "https://8000-glydric22-cyberbullismp-tqotjkpzd1a.ws-eu71.gitpod.io"
+DbServer = "http://leonardomigliorelli.altervista.org"
 
 def getSql(email: str, password: str, otherEmail: str) -> str:
     arguments = {
@@ -13,7 +13,7 @@ def getSql(email: str, password: str, otherEmail: str) -> str:
         "otherEmail": otherEmail,
     }
 
-    return requests.post(DbServer, json=arguments).text
+    return requests.post(DbServer+"/PsycoGetMessages.php", json=arguments).text
 
 
 class WebSocket(WS.WebSocketHandler):
