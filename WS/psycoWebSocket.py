@@ -4,6 +4,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket as WS
 
+DbServer = "https://8000-glydric22-cyberbullismp-tqotjkpzd1a.ws-eu71.gitpod.io"
 
 def getSql(email: str, password: str, otherEmail: str) -> str:
     arguments = {
@@ -12,7 +13,7 @@ def getSql(email: str, password: str, otherEmail: str) -> str:
         "otherEmail": otherEmail,
     }
 
-    return requests.post("localhost", json=arguments).text
+    return requests.post(DbServer, json=arguments).text
 
 
 class WebSocket(WS.WebSocketHandler):
@@ -33,8 +34,8 @@ class WebSocket(WS.WebSocketHandler):
             self.getHeader("psyco_email"),
         )
 
-        self.write_message(r"Messaggio ricevuto: {message}")
-        self.write_message(r"Risposta: {response}")
+        self.write_message(f"Messaggio ricevuto: {message}")
+        self.write_message(f"Risposta: {response}")
 
     def on_close(self):
         # metodo eseguito alla chiusura della connessione
