@@ -3,19 +3,20 @@ from UserWebSocket import UserWebSocket
 
 
 class PsycoWebSocket(UserWebSocket):
+    # Consente di ottenere i messaggi
     def getMessages(self) -> str:
-        arguments = {
-            "email": self.email,
-            "password": self.password,
-            "otherEmail": self.otherEmail,
-        }
-
         result = requests.post(
             self.DbServer + "/PsycoGetMessages.php",
-            data=arguments,
+            data=self.arguments,
         )
         return result.text
 
-    def sendMessage(self) -> str:
-        print("sendMessage Not Implemented")
-        pass
+    # Consente di inviare i messaggi
+    def sendMessage(self, message: str) -> str:
+        self.arguments["testo"] = message
+        result = requests.post(
+            self.DbServer + "/PsycoSendMessage.php",
+            data=self.arguments,
+        )
+        self.arguments.pop("testo")
+        return result.text
