@@ -43,7 +43,7 @@ class UserWebSocket(WS.WebSocketHandler):
         elif re.sub("set +", "", message, 1) != message:
             m = re.sub("set +", "", message, 1)
             self.arguments = json.loads(m)
-            return "setted"
+            return ""
         return "Request Error"
 
     # Consente di ottenere i messaggi
