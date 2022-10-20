@@ -1,14 +1,8 @@
 import requests
-import tornado.websocket as WS
-
-DbServer = "http://leonardomigliorelli.altervista.org"
+from UserWebSocket import UserWebSocket
 
 
-class PsycoWebSocket(WS.WebSocketHandler):
-    email: str
-    password: str
-    otherEmail: str
-
+class PsycoWebSocket(UserWebSocket):
     def getMessages(self) -> str:
         arguments = {
             "email": self.email,
@@ -17,46 +11,11 @@ class PsycoWebSocket(WS.WebSocketHandler):
         }
 
         result = requests.post(
-            DbServer + "/PsycoGetMessages.php",
+            self.DbServer + "/PsycoGetMessages.php",
             data=arguments,
         )
         return result.text
 
-    def sendMessage() -> str:
+    def sendMessage(self) -> str:
+        print("sendMessage Not Implemented")
         pass
-
-    def getHeader(self, name: str):
-        return self.request.headers.get(name)
-
-    def open(self):
-        # metodo eseguito all'apertura della connessione
-
-        self.email = self.getHeader("email")
-        self.password = self.getHeader("password")
-        self.otherEmail = self.getHeader("otherEmail")
-
-        print(
-            "Nuova connessione instanziata con i seguenti valori\n"
-            + f"{self.email}, {self.password}, {self.otherEmail}"
-        )
-
-    def on_message(self, message):
-        # metodo eseguito alla ricezione di un messaggio
-        # la stringa 'message' rappresenta il messaggio
-
-        print(f"Messaggio ricevuto: {message}")
-
-        if message == "reload":
-
-            response = self.getMessages()
-        elif message == "send":
-            response = self.sendMessage()
-        else:
-            response = "Request Error"
-
-        self.write_message(f"Risposta: {response}")
-
-    def on_close(self):
-        # metodo eseguito alla chiusura della connessione
-        # tornado.ioloop.IOLoop.instance().stop()
-        print("Connessione chiusa")
