@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_USER: cyber
+      MYSQL_PASSWORD: AdminDB02
+      MYSQL_DATABASE: cyberbullism
+    # volumes:
+    #   - ./mySqlData/:/var/lib/mysql
+    # command: mysql -ucyber -p"AdminDB02" > /dev/null < cyberbullism.sql 

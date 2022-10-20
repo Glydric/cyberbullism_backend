@@ -1,29 +1,28 @@
 <?php
 require('config.php');
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
-checkExists("utente", $conn, $email, $password);
-mysqli_free_result($result);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
+checkExists("utente", $conn, $email, $password);
 
 // get users
-
 $query = "SELECT
     psyco_email AS otherEmail,
     nome,
     cognome,
     testo,
 	data,
-    sender,
+    send_by_user,
     gravita
 FROM
     messaggio
 JOIN psyco ON psyco_email = email
 WHERE
-    psyco_email IS NOT NULL AND DATA IN(
+    psyco_email IS NOT NULL 
+    AND DATA IN(
     SELECT
-        MAX(DATA)
+        MAX(data)
     FROM
         messaggio
     GROUP BY

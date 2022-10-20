@@ -1,8 +1,8 @@
 <?php
 require('config.php');
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 checkExists("psyco", $conn, $email, $password);
 
@@ -13,7 +13,7 @@ $psyco_query = "SELECT
     cognome,
     testo,
     data,
-    sender,
+    send_by_user,
     gravita
 FROM
     messaggio
@@ -21,7 +21,7 @@ JOIN utente ON user_email = email
 WHERE
     data IN(
     SELECT
-        MAX(DATA)
+        MAX(data)
     FROM
         messaggio
     GROUP BY

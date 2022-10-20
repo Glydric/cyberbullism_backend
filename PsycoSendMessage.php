@@ -1,8 +1,8 @@
 <?php
 require('config.php');
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
   die("invalid-email");
@@ -16,10 +16,10 @@ if (mysqli_num_rows($result) == 0) {
 }
 
 // send message
-$testo = removeSQLDelimitersFrom($_GET['testo']);
-$otherEmail = removeSQLDelimitersFrom($_GET['otherEmail']);
+$testo = removeSQLDelimitersFrom($_POST['testo']);
+$otherEmail = removeSQLDelimitersFrom($_POST['otherEmail']);
 
-if (!mysqli_query($conn, "insert into messaggio(psyco_email, user_email, testo, sender) values('$email','$otherEmail', '$testo', 1)")) {
+if (!mysqli_query($conn, "insert into messaggio(psyco_email, user_email, testo, send_by_user) values('$email','$otherEmail', '$testo', 1)")) {
   echo (mysqli_error($conn));
 }
 mysqli_close($conn);

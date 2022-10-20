@@ -1,0 +1,6 @@
+.vscode
+old/
+WS/vendor/
+WS/composer.lock
+WS/mySqlData
+WS/__pycache__

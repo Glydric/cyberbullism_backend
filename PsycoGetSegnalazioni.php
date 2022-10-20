@@ -2,8 +2,8 @@
 require('config.php');
 
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
   die("invalid-email");
@@ -25,7 +25,7 @@ JOIN utente ON user_email = email
 WHERE
     psyco_email IS NULL
     AND gravita IS NOT NULL
-    AND sender = 0
+    AND send_by_user = 0
 ORDER BY
     gravita
 DESC
