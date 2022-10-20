@@ -1,6 +1,8 @@
 import requests, re
 import tornado.websocket as WS
 
+connectionText = "Nuova connessione instanziata con i seguenti valori\n{}, {}, {}\n"
+
 
 class UserWebSocket(WS.WebSocketHandler):
     DbServer = "http://leonardomigliorelli.altervista.org"
@@ -9,14 +11,17 @@ class UserWebSocket(WS.WebSocketHandler):
     # metodo eseguito all'apertura della connessione
     def open(self):
         self.arguments = {
-            "email": self.email,
-            "password": self.password,
-            "otherEmail": self.otherEmail,
+            "email": self.getHeader("email"),
+            "password": self.getHeader("password"),
+            "otherEmail": self.getHeader("otherEmail"),
         }
 
         print(
-            "Nuova connessione instanziata con i seguenti valori\n"
-            + f"{self.arguments['email']}, {self.arguments['password']}, {self.arguments['otherEmail']}"
+            connectionText.format(
+                self.arguments["email"],
+                self.arguments["password"],
+                self.arguments["otherEmail"],
+            )
         )
 
     # esegue uno switch in base al messaggio ricevuto ed esegue i relativi metodi
@@ -39,19 +44,18 @@ class UserWebSocket(WS.WebSocketHandler):
         return result.text
 
     # Consente di inviare i messaggi
-    def sendMessage(self, message: dict) -> str:
-        self.arguments["message"] = message
+    def sendMessage(self, message: str) -> str:
+        self.arguments["testo"] = message
         result = requests.post(
-            self.DbServer + "/UserGetMessages.php",
+            self.DbServer + "/UserSendMessage.php",
             data=self.arguments,
         )
-        self.arguments.pop("message")
+        self.arguments.pop("testo")
         return result.text
 
     # Metodo di comodo che ci permette di ottenere i valori post passati
     def getHeader(self, name: str):
         return self.request.headers.get(name)
-
 
     # metodo eseguito alla ricezione di un messaggio
     def on_message(self, message):
