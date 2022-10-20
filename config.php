@@ -1,7 +1,7 @@
 <?php
-$host = "localhost"; //database.cjjeevkacoc3.eu-south-1.rds.amazonaws.com";
+$host = "localhost";
 $database = "cyberbullism";
-$username = "admin";
+$username = "cyber"; #"admin";
 $password = "AdminDB02"; //"CyberDb2022?";
 $conn = mysqli_connect($host, $username, $password, $database);
 

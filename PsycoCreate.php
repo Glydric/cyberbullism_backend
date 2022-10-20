@@ -1,11 +1,11 @@
 <?php
 require('config.php');
-$email = removeSQLDelimitersFrom($_GET['email']);
-$nome = removeSQLDelimitersFrom($_GET['nome']);
-$cognome = removeSQLDelimitersFrom($_GET['cognome']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$nome = removeSQLDelimitersFrom($_POST['nome']);
+$cognome = removeSQLDelimitersFrom($_POST['cognome']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
-if (removeSQLDelimitersFrom($_GET['Auth_Key_Create_Psyco']) != "24BEC3BFA")
+if (removeSQLDelimitersFrom($_POST['Auth_Key_Create_Psyco']) != "24BEC3BFA")
   die('');
 
 //controlli generici di input

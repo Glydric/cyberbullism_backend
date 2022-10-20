@@ -1,8 +1,8 @@
 <?php
 require('config.php');
-$email = removeSQLDelimitersFrom($_GET['email']);
-$newPassword = removeSQLDelimitersFrom($_GET['newPassword']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$newPassword = removeSQLDelimitersFrom($_POST['newPassword']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 if (!$email) {
   die("empty-email");

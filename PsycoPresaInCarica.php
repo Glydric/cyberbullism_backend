@@ -1,8 +1,8 @@
 <?php
 require('config.php');
 // get user
-$email = removeSQLDelimitersFrom($_GET['email']);
-$password = removeSQLDelimitersFrom($_GET['password']);
+$email = removeSQLDelimitersFrom($_POST['email']);
+$password = removeSQLDelimitersFrom($_POST['password']);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
     die("invalid-email");
@@ -16,8 +16,8 @@ if (mysqli_num_rows($result) == 0) {
 }
 
 // send message
-$otherEmail = removeSQLDelimitersFrom($_GET['otherEmail']);
-$data = removeSQLDelimitersFrom($_GET['data']);
+$otherEmail = removeSQLDelimitersFrom($_POST['otherEmail']);
+$data = removeSQLDelimitersFrom($_POST['data']);
 
 // $query = "update segnalazione set inCarica='$email' where email='$otherEmail' and data='$data' and inCarica is null";
 $query = "UPDATE
