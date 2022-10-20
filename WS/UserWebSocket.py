@@ -1,4 +1,5 @@
-import requests, re
+from json import JSONDecoder, JSONEncoder
+import requests, re, json
 import tornado.websocket as WS
 
 connectionText = "Nuova connessione instanziata con i seguenti valori\n{}, {}, {}\n"
@@ -10,11 +11,11 @@ class UserWebSocket(WS.WebSocketHandler):
 
     # metodo eseguito all'apertura della connessione
     def open(self):
-        self.arguments = {
-            "email": self.getHeader("email"),
-            "password": self.getHeader("password"),
-            "otherEmail": self.getHeader("otherEmail"),
-        }
+        self.setArguments(
+            self.getHeader("email"),
+            self.getHeader("password"),
+            self.getHeader("otherEmail"),
+        )
 
         print(
             connectionText.format(
@@ -24,15 +25,26 @@ class UserWebSocket(WS.WebSocketHandler):
             )
         )
 
+    def setArguments(self, email: str, password: str, otherEmail: str):
+        self.arguments = {
+            "email": email,
+            "password": password,
+            "otherEmail": otherEmail,
+        }
+
     # esegue uno switch in base al messaggio ricevuto ed esegue i relativi metodi
     def switch(self, message: str) -> str:
         if message == "reload":
             return self.getMessages()
-        elif message.find("send") != -1:
+        elif re.sub("send +", "", message, 1) != message:  # re.match
             # remove first send and successives spaces
             m = re.sub("send +", "", message, 1)
             # send message
             return self.sendMessage(m)
+        elif re.sub("set +", "", message, 1) != message:
+            m = re.sub("set +", "", message, 1)
+            self.arguments = json.loads(m)
+            return "setted"
         return "Request Error"
 
     # Consente di ottenere i messaggi
@@ -60,8 +72,10 @@ class UserWebSocket(WS.WebSocketHandler):
     # metodo eseguito alla ricezione di un messaggio
     def on_message(self, message):
         print(f"Messaggio ricevuto: {message}")
+        result = self.switch(message)
 
-        self.write_message(f"Risposta: {self.switch(message)}")
+        if result != "":
+            self.write_message(result)
 
     # metodo eseguito alla chiusura della connessione
     def on_close(self):
