@@ -4,7 +4,7 @@ tasks:
     before: cd WS && docker-compose up -d
     init: docker exec -i mysql sh -c 'exec mysql -ucyber -pAdminDB02' < cyberbullism.sql
   - name: install python requirements
-    init: pip install -r WS/requirements.txt
+    init: pip install -r WS/requirements.txt && clear
     command: python WS/webSocket.py
   - name: install php mysql
     init: sudo apt install php-mysql -y
