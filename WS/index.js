@@ -1,6 +1,6 @@
 const ws = require("ws")
 
-const url = 'ws://www.host.com/path'
-const socket = new WebSocket(url, {
-    perMessageDeflate: false
+const serverDB = 'ws://http://leonardomigliorelli.altervista.org"'
+const socket = new WebSocket.server({
+    port: 8000
 });
