@@ -2,7 +2,7 @@ const WebSocketServer = require("ws")
 
 const dbUrl = 'ws://http://leonardomigliorelli.altervista.org'
 
-const server = new WebSocketServer.server({ port: 8080 });
+const server = new WebSocketServer.Server({ port: 8080 });
 
 server.on('connection', connection => {
     console.log("new connection".socket)
