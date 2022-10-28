@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "superagent": "^8.0.3",
     "ws": "^8.10.0"
   }
 }
