@@ -1,17 +1,22 @@
 const WebSocketServer = require("ws")
+const UserWebSocket = require("./userWS")
+const url = require("url")
 
-const dbUrl = 'ws://http://leonardomigliorelli.altervista.org'
+const dbUrl = 'ws://leonardomigliorelli.altervista.org'
 
 const server = new WebSocketServer.Server({ port: 8080 });
+
+class PsycoWebSocket extends UserWebSocket {
+
+}
+
 
 server.on('connection', connection => {
     connection.id
     console.log('new connection')
+    user = new UserWebSocket()
 
-    connection.on('message', msg => {
-        console.log(`Client send ${msg}`)
-        connection.send(`${msg}`)
-    })
+    connection.on('message', user.onMessage)
 
     connection.on('close', () => console.log(`Client disconnected`))
 
