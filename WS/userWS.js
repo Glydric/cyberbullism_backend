@@ -22,28 +22,26 @@ server.on('connection', conn => {
     console.log('new connection')
 
     function reload() {
-        request.post({
-            url: dbUrl + "/UserGetMessages.php",
-            json: true,
-            body: jsonAuth,
-        }, (err, res, body) => {
-            if (!err && res.statusCode == 200)
-                conn.send(body)
-            else
-                conn.send("Unknown Error")
-        })
+        request.post(
+            dbUrl + "/UserGetMessages.php",
+            {
+                formData: jsonAuth
+            }, (err, res) => {
+                if (!err && res.statusCode == 200)
+                    conn.send(res.body)
+                else
+                    conn.send("Unknown Error")
+            })
     }
 
     conn.onmessage = msg => {
-        const message = `${msg}`
-        // console.log(`Client send ${message}`)
+        const message = `${msg.data}`
 
         if (message.startsWith("set"))
             setAuth(message.replace("set ", ""))
 
         if (message.startsWith("send"))
             sendMessage(message.replace("send  ", ""))
-
 
         reload()
     }
