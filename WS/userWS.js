@@ -5,23 +5,32 @@ const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
 const server = new WebSocketServer.Server({ port: 80 });
 
-var jsonValue
+var jsonAuth
 
-function onMessage(msg) {
-    console.log(`Client send ${msg}`)
-    conn.send(`${msg}`)
-}
-function setJsonValue(message) {
-    jsonValue = JSON.parse(message)
+function setAuth(message) {
+    jsonAuth = JSON.parse(message)
 }
 
-function sendMessage() {
+function sendMessage(message) {
 
 }
 
 server.on('connection', conn => {
     conn.id
     console.log('new connection')
+
+    function reload() {
+        request.post({
+            url: dbUrl + "/UserGetMessages.php",
+            json: true,
+            body: jsonAuth,
+        }, (err, res, body) => {
+            if (!err && res.statusCode == 200)
+                conn.send(body)
+            else
+                conn.send("Unknown Error")
+        })
+    }
 
 
     conn.on('message',
@@ -31,24 +40,16 @@ server.on('connection', conn => {
 
             if (message.startsWith("set")) {
                 console.log("set ricevuto")
-                setJsonValue(message.replace("set ", ""))
+                setAuth(message.replace("set ", ""))
+                // console.log(`${jsonValue['otherEmail']}`)
             }
 
             if (message.startsWith("send")) {
                 console.log("send ricevuto")
-                sendMessage()
+                sendMessage(message.replace("send  ", ""))
             }
 
-            request.post({
-                url: dbUrl + "/UserGetMessages.php",
-                body: jsonValue,
-                json: true
-            },
-                (err, res, body) => {
-                    conn.send(body)
-                }
-            )
-
+            reload()
         }
     )
 
