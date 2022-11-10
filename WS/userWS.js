@@ -32,7 +32,7 @@ server.on('connection', conn => {
         })
     }
 
-    conn.onmessage = (msg) => {
+    conn.onmessage = msg => {
         const message = `${msg}`
         // console.log(`Client send ${message}`)
 
