@@ -32,26 +32,23 @@ server.on('connection', conn => {
         })
     }
 
+    conn.onmessage = (msg) => {
+        const message = `${msg}`
+        // console.log(`Client send ${message}`)
 
-    conn.on('message',
-        (msg) => {
-            const message = `${msg}`
-            // console.log(`Client send ${message}`)
-
-            if (message.startsWith("set")) {
-                console.log("set ricevuto")
-                setAuth(message.replace("set ", ""))
-                // console.log(`${jsonValue['otherEmail']}`)
-            }
-
-            if (message.startsWith("send")) {
-                console.log("send ricevuto")
-                sendMessage(message.replace("send  ", ""))
-            }
-
-            reload()
+        if (message.startsWith("set")) {
+            console.log("set ricevuto")
+            setAuth(message.replace("set ", ""))
+            // console.log(`${jsonValue['otherEmail']}`)
         }
-    )
+
+        if (message.startsWith("send")) {
+            console.log("send ricevuto")
+            sendMessage(message.replace("send  ", ""))
+        }
+
+        reload()
+    }
 
     conn.onclose = () => console.log(`Client disconnected`)
 
