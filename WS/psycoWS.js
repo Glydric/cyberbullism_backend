@@ -3,7 +3,7 @@ const unirest = require("unirest");
 
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
-const server = new WebSocketServer.Server({ port: 80 });
+const server = new WebSocketServer.Server({ port: 80, path: "/psyco" });
 
 var jsonAuth
 
@@ -21,7 +21,7 @@ function sendMessage(message) {
         .then(res => console.log(res.status))
 }
 
-server.on('connection', conn => {
+function psycoServerConnection(conn) {
     conn.id
     console.log('new connection')
 
@@ -52,4 +52,7 @@ server.on('connection', conn => {
     conn.onclose = () => console.log(`Client disconnected`)
 
     conn.onerror = () => console.log("An error occurred")
-})
+}
+server.on('connection', psycoServerConnection )
+
+module.exports = {psycoServerConnection}
