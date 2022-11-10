@@ -1,24 +1,55 @@
 const WebSocketServer = require("ws")
-const UserWebSocket = require("./userWS")
-const url = require("url")
+const unirest = require("unirest");
 
-const dbUrl = 'ws://leonardomigliorelli.altervista.org'
+const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
-const server = new WebSocketServer.Server({ port: 8080 });
+const server = new WebSocketServer.Server({ port: 80 });
 
-class PsycoWebSocket extends UserWebSocket {
+var jsonAuth
 
+function setAuth(message) {
+    console.log("set ricevuto")
+    jsonAuth = JSON.parse(message)
 }
 
+function sendMessage(message) {
+    console.log("send ricevuto")
+    jsonAuth["testo"] = message
 
-server.on('connection', connection => {
-    connection.id
+    unirest.post(dbUrl + "/PsycoSendMessage.php")
+        .send(jsonAuth)
+        .then(res => console.log(res.status))
+}
+
+server.on('connection', conn => {
+    conn.id
     console.log('new connection')
-    user = new UserWebSocket()
 
-    connection.on('message', user.onMessage)
+    function reload() {
+        unirest.post(dbUrl + "/PsycoGetMessages.php")
+            .send(jsonAuth)
+            .then(
+                res => conn.send(
+                    res.status == 200
+                        ? res.body
+                        : "WebSocket Connection Error"
+                )
+            )
+    }
 
-    connection.on('close', () => console.log(`Client disconnected`))
+    conn.onmessage = msg => {
+        const message = `${msg.data}`
 
-    connection.onerror = () => console.log("An error occurred")
+        if (message.startsWith("set"))
+            setAuth(message.replace("set ", ""))
+
+        if (message.startsWith("send"))
+            sendMessage(message.replace("send ", ""))
+
+        reload()
+    }
+
+    conn.onclose = () => console.log(`Client disconnected`)
+
+    conn.onerror = () => console.log("An error occurred")
 })
