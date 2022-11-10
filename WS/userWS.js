@@ -1,5 +1,5 @@
 const WebSocketServer = require("ws")
-const request = require("request");
+const unirest = require("unirest");
 
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
@@ -15,6 +15,8 @@ function setAuth(message) {
 function sendMessage(message) {
     console.log("send ricevuto")
 
+    unirest.post(dbUrl + "/UserSendMessages.php")
+        .send(jsonAuth)
 }
 
 server.on('connection', conn => {
@@ -22,16 +24,15 @@ server.on('connection', conn => {
     console.log('new connection')
 
     function reload() {
-        request.post(
-            dbUrl + "/UserGetMessages.php",
-            {
-                formData: jsonAuth
-            }, (err, res) => {
-                if (!err && res.statusCode == 200)
-                    conn.send(res.body)
-                else
-                    conn.send("Unknown Error")
-            })
+        unirest.post(dbUrl + "/UserGetMessages.php")
+            .send(jsonAuth)
+            .then(
+                res => conn.send(
+                    res.status == 200
+                        ? res.body
+                        : "WebSocket Connection Error"
+                )
+            )
     }
 
     conn.onmessage = msg => {
