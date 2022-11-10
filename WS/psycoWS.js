@@ -53,6 +53,6 @@ function psycoServerConnection(conn) {
 
     conn.onerror = () => console.log("An error occurred")
 }
-server.on('connection', psycoServerConnection )
+server.on('connection', psycoServerConnection)
 
-module.exports = {psycoServerConnection}
+module.exports = { psycoServerConnection }
