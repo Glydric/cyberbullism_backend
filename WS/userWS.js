@@ -1,6 +1,8 @@
 const WebSocketServer = require("ws")
-const url = require("url")
-const superagent = require("superagent")
+// const url = require("url")
+// const superagent = require("superagent");
+const request = require("request");
+// const { request } = require("http");
 
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
@@ -12,13 +14,37 @@ function onMessage(msg) {
     console.log(`Client send ${msg}`)
     conn.send(`${msg}`)
 }
+function setJsonValue(message) {
+    jsonValue = JSON.parse(message)
+}
 
-function sendRequest(){
+function sendRequest() {
 
 }
 
-function reload(){
-
+function reload() {
+    var body;
+    request.post({
+        url: dbUrl + "/UserGetMessages.php",
+        body: jsonValue,
+        json: true
+    },
+        (err, res, b) => {
+            // console.log(body)
+            body = b
+        }
+    )
+    // console.log(res.body)
+    return body
+    // superagent
+    //     .post(dbUrl + "/UserGetMessages.php")
+    //     .send(jsonValue)
+    //     // .then((t) => { return t.body })
+    //     // .catch(console.log)
+    //     .end((err, res) => {
+    //         console.log(err)
+    //         console.log(res.body)
+    //     })
 }
 
 server.on('connection', conn => {
@@ -29,14 +55,28 @@ server.on('connection', conn => {
     conn.on('message',
         (msg) => {
             const message = `${msg}`
-            console.log(`Client send ${message}`)
-            conn.send(message)
+            // console.log(`Client send ${message}`)
 
-            if (message.startsWith("set"))
-                jsonValue = message.replace("set ", "")
-            else if (message.startsWith("send"))
+            if (message.startsWith("set")) {
+                console.log("set ricevuto")
+                setJsonValue(message.replace("set ", ""))
+            }
+
+            if (message.startsWith("send")) {
+                console.log("send ricevuto")
                 sendRequest()
-            else reload()
+            }
+
+            request.post({
+                url: dbUrl + "/UserGetMessages.php",
+                body: jsonValue,
+                json: true
+            },
+                (err, res, body) => {
+                    conn.send(body)
+                }
+            )
+
         }
     )
 
