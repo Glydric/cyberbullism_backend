@@ -14,9 +14,11 @@ function setAuth(message) {
 
 function sendMessage(message) {
     console.log("send ricevuto")
+    jsonAuth["testo"] = message
 
-    unirest.post(dbUrl + "/UserSendMessages.php")
+    unirest.post(dbUrl + "/UserSendMessage.php")
         .send(jsonAuth)
+        .then(res => console.log(res.status))
 }
 
 server.on('connection', conn => {
@@ -42,7 +44,7 @@ server.on('connection', conn => {
             setAuth(message.replace("set ", ""))
 
         if (message.startsWith("send"))
-            sendMessage(message.replace("send  ", ""))
+            sendMessage(message.replace("send ", ""))
 
         reload()
     }
