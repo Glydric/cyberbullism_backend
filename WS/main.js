@@ -1,17 +1,14 @@
-const WebSocketServer = require("ws")//.Server
+const WebSocketServer = require("ws").Server
 const url = require("url")
 const unirest = require("unirest");
 
-const server = new WebSocketServer.Server({
-    port: 80
-});
+const server = new WebSocketServer({ port: 80 });
 
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
 var jsonAuth
 
 function setAuth(message) {
-    console.log("set ricevuto")
     jsonAuth = JSON.parse(message)
 }
 
@@ -36,13 +33,11 @@ function serverConnection(conn, req) {
     function reload() {
         unirest.post(dbUrl + path + "GetMessages.php")
             .send(jsonAuth)
-            .then(
-                res => conn.send(
-                    res.status == 200
-                        ? res.body
-                        : "WebSocket Connection Error"
-                )
-            )
+            .then(res => conn.send(
+                res.status == 200
+                    ? res.body
+                    : "WebSocket Connection Error"
+            ))
     }
 
     conn.onmessage = msg => {
