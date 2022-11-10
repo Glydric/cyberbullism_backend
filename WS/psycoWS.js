@@ -1,9 +1,7 @@
-const WebSocketServer = require("ws")
 const unirest = require("unirest");
 
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
-const server = new WebSocketServer.Server({ port: 80, path: "/psyco" });
 
 var jsonAuth
 
@@ -53,6 +51,5 @@ function psycoServerConnection(conn) {
 
     conn.onerror = () => console.log("An error occurred")
 }
-server.on('connection', psycoServerConnection)
 
 module.exports = { psycoServerConnection }
