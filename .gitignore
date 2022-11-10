@@ -4,3 +4,4 @@ WS/vendor/
 WS/composer.lock
 WS/mySqlData
 WS/__pycache__
+WS/node_modules/

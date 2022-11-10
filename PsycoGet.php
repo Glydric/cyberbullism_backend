@@ -10,11 +10,10 @@ $result = mysqli_query($conn, "select * from psyco where email='$email' and pass
 if (!$result) {
   echo (mysqli_error($conn));
 }
-if (mysqli_num_rows($result) > 0) {
-  $row[] = mysqli_fetch_assoc($result);
-  echo json_encode($row[0]);
-} else
+if (mysqli_num_rows($result) == 0)
   die("user-not-found");
+$row[] = mysqli_fetch_assoc($result);
+echo json_encode($row[0]);
 
 mysqli_free_result($result);
 mysqli_close($conn);
