@@ -1,8 +1,5 @@
 const WebSocketServer = require("ws")
-// const url = require("url")
-// const superagent = require("superagent");
 const request = require("request");
-// const { request } = require("http");
 
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
@@ -18,33 +15,8 @@ function setJsonValue(message) {
     jsonValue = JSON.parse(message)
 }
 
-function sendRequest() {
+function sendMessage() {
 
-}
-
-function reload() {
-    var body;
-    request.post({
-        url: dbUrl + "/UserGetMessages.php",
-        body: jsonValue,
-        json: true
-    },
-        (err, res, b) => {
-            // console.log(body)
-            body = b
-        }
-    )
-    // console.log(res.body)
-    return body
-    // superagent
-    //     .post(dbUrl + "/UserGetMessages.php")
-    //     .send(jsonValue)
-    //     // .then((t) => { return t.body })
-    //     // .catch(console.log)
-    //     .end((err, res) => {
-    //         console.log(err)
-    //         console.log(res.body)
-    //     })
 }
 
 server.on('connection', conn => {
@@ -64,7 +36,7 @@ server.on('connection', conn => {
 
             if (message.startsWith("send")) {
                 console.log("send ricevuto")
-                sendRequest()
+                sendMessage()
             }
 
             request.post({
