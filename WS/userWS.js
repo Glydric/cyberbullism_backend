@@ -8,10 +8,12 @@ const server = new WebSocketServer.Server({ port: 80 });
 var jsonAuth
 
 function setAuth(message) {
+    console.log("set ricevuto")
     jsonAuth = JSON.parse(message)
 }
 
 function sendMessage(message) {
+    console.log("send ricevuto")
 
 }
 
@@ -36,16 +38,12 @@ server.on('connection', conn => {
         const message = `${msg}`
         // console.log(`Client send ${message}`)
 
-        if (message.startsWith("set")) {
-            console.log("set ricevuto")
+        if (message.startsWith("set"))
             setAuth(message.replace("set ", ""))
-            // console.log(`${jsonValue['otherEmail']}`)
-        }
 
-        if (message.startsWith("send")) {
-            console.log("send ricevuto")
+        if (message.startsWith("send"))
             sendMessage(message.replace("send  ", ""))
-        }
+
 
         reload()
     }
