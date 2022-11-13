@@ -15,6 +15,7 @@ function setAuth(message) {
 function serverConnection(conn, req) {
     conn.id
     const path = url.parse(req.url, true).path;
+    var lastResponse;
 
     if (path != "/Psyco" && path != "/User")
         conn.close()
@@ -33,11 +34,18 @@ function serverConnection(conn, req) {
     function reload() {
         unirest.post(dbUrl + path + "GetMessages.php")
             .send(jsonAuth)
-            .then(res => conn.send(
-                res.status == 200
-                    ? res.body
-                    : "WebSocket Connection Error"
-            ))
+            .then(res => {
+                if(lastResponse == res.body)
+                    return
+                
+                lastResponse = res.body
+
+                conn.send(
+                    res.status == 200
+                        ? lastResponse
+                        : "WebSocket Connection Error"
+                )
+            })
     }
 
     conn.onmessage = msg => {
