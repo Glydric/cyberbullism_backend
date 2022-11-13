@@ -2,9 +2,10 @@ const WebSocketServer = require("ws").Server
 const url = require("url")
 const unirest = require("unirest");
 
-const server = new WebSocketServer({ port: 80 });
-
+const config = { port: 80 }
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
+
+const server = new WebSocketServer(config);
 
 var jsonAuth
 
