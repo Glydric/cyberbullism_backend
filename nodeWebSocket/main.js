@@ -1,5 +1,4 @@
 const WebSocketServer = require("ws").Server
-const url = require("url")
 const unirest = require("unirest");
 
 const config = { port: 80 }
@@ -7,28 +6,27 @@ const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
 const server = new WebSocketServer(config);
 
-var jsonAuth
-
-function setAuth(message) {
-    jsonAuth = JSON.parse(message)
-}
 
 function serverConnection(conn, req) {
-    conn.id
-    const path = url.parse(req.url, true).path;
-    var lastResponse;
+    const path = `${req.url}`
+    var lastResponse
+    var auth
 
-    if (path != "/Psyco" && path != "/User")
+    if (path in ["/Psyco", "/User"])
         conn.close()
 
-    console.log(`new connection in ${path}`)
+    console.log(`Accepted new connection in ${path}`)
+
+    function setAuth(message) {
+        auth = JSON.parse(message)
+    }
 
     function sendMessage(message) {
         console.log("send ricevuto")
-        jsonAuth["testo"] = message
+        auth["testo"] = message
 
         unirest.post(dbUrl + path + "SendMessage.php")
-            .send(jsonAuth)
+            .send(auth)
             .then(res => console.log(res.status))
     }
 
@@ -43,9 +41,10 @@ function serverConnection(conn, req) {
             conn.send(lastResponse)
         }
     }
+
     function reload() {
         unirest.post(dbUrl + path + "GetMessages.php")
-            .send(jsonAuth)
+            .send(auth)
             .then(responseCheck)
     }
 
