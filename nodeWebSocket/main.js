@@ -32,21 +32,21 @@ function serverConnection(conn, req) {
             .then(res => console.log(res.status))
     }
 
+    function responseCheck(res) {
+        if (res.status != 200) {
+            conn.send(`WebSocket-Error ${res.status}`);
+            return
+        }
+
+        if (lastResponse != res.body) {
+            lastResponse = res.body
+            conn.send(lastResponse)
+        }
+    }
     function reload() {
         unirest.post(dbUrl + path + "GetMessages.php")
             .send(jsonAuth)
-            .then(res => {
-                if(lastResponse == res.body)
-                    return
-                
-                lastResponse = res.body
-
-                conn.send(
-                    res.status == 200
-                        ? lastResponse
-                        : "WebSocket Connection Error"
-                )
-            })
+            .then(responseCheck)
     }
 
     conn.onmessage = msg => {
