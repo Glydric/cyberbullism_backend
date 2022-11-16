@@ -1,6 +1,7 @@
 const WebSocketServer = require("ws").Server
 const unirest = require("unirest");
 
+const mdRefresh = 200
 const config = { port: 80 }
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
@@ -11,6 +12,7 @@ function serverConnection(conn, req) {
     const path = `${req.url}`
     var lastResponse
     var auth
+    setInterval(reload, msRefresh)
 
     if (path in ["/Psyco", "/User"])
         conn.close()
@@ -43,9 +45,10 @@ function serverConnection(conn, req) {
     }
 
     function reload() {
-        unirest.post(dbUrl + path + "GetMessages.php")
-            .send(auth)
-            .then(responseCheck)
+        if (auth !== undefined)
+            unirest.post(dbUrl + path + "GetMessages.php")
+                .send(auth)
+                .then(responseCheck)
     }
 
     conn.onmessage = msg => {
