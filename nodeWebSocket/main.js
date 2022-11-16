@@ -1,7 +1,7 @@
 const WebSocketServer = require("ws").Server
 const unirest = require("unirest");
 
-const mdRefresh = 200
+const msRefresh = 200
 const config = { port: 80 }
 const dbUrl = 'http://leonardomigliorelli.altervista.org'
 
