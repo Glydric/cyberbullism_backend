@@ -13,14 +13,14 @@ if (!$password) {
 if (!$newPassword) {
   die("empty-password");
 }
-$result = mysqli_query($conn, "select * from psyco WHERE email = '$email' and password = '$password'");
+$result = mysqli_query($conn, "SELECT * FROM psyco WHERE email = '$email' and password = '$password'");
 
 if (!$result) {
   echo (mysqli_error($conn));
 }
 
 if (mysqli_num_rows($result) > 0) {
-  if (!mysqli_query($conn, "UPDATE psyco set password = '$newPassword' WHERE email = '$email' and password = '$password'")) {
+  if (!mysqli_query($conn, "UPDATE psyco SET password = '$newPassword' WHERE email = '$email' AND password = '$password'")) {
     echo (mysqli_error($conn));
   }
 } else {
