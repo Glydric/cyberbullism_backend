@@ -5,7 +5,7 @@ $nome = removeSQLDelimitersFrom($_POST['nome']);
 $cognome = removeSQLDelimitersFrom($_POST['cognome']);
 $password = removeSQLDelimitersFrom($_POST['password']);
 
-if (removeSQLDelimitersFrom($_POST['Auth_Key_Create_Psyco']) != "24BEC3BFA")
+if ($_POST['Auth_Key_Create_Psyco'] != "24BEC3BFA")
   die('');
 
 //controlli generici di input
