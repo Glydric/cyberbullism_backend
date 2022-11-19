@@ -1,20 +1,25 @@
 <?php
 require('config.php');
-$email = removeSQLDelimitersFrom($_POST['email']);
-$password = removeSQLDelimitersFrom($_POST['password']);
+
+$email = $_POST['email'];
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
   die("invalid-email");
 
-$result = mysqli_query($conn, "select * from utente where email='$email' and password='$password'");
-if (!$result) {
-  echo (mysqli_error($conn));
-}
-if (mysqli_num_rows($result) == 0)
-  die("user-not-found");
-$row[] = mysqli_fetch_assoc($result);
-echo json_encode($row[0]);
+$query = $conn->prepare("SELECT * FROM utente where email=? and password=?");
+$query->bind_param("ss", $email, $_POST['password']);
+$query->execute();
 
+$result = $query->get_result();
 
-mysqli_free_result($result);
-mysqli_close($conn);
+if($result->num_rows == 0)
+    die("user-not-found");
+
+if(!$result)
+    die($conn->error);
+
+echo json_encode($result->fetch_assoc());
+
+$query->close();
+$result->close();
+$conn->close();
