@@ -1,41 +1,31 @@
 {
-	"name": "Existing Dockerfile",
-	"build": {
-		// Sets the run context to one level up instead of the .devcontainer folder.
-		"context": "../nodeWebSocket",
-		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-		"dockerfile": "Dockerfile"
-	},
+	"name": "Default Linux Universal",
+	"image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
+		"ghcr.io/devcontainers/features/docker-from-docker:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:1": {},
 		"ghcr.io/devcontainers/features/node:1": {}
 	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"portsAttributes": {
 		"8080": {
 			"label": "WebSocket"
 		}
-	}
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
+	},
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
-	// "postCreateCommand": "apt-get update && apt-get install -y curl",
-
+	"postCreateCommand": "cd nodeWebSocket && docker build . -t ws && docker run -d -p 8080:8080 ws"
 	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
 	// "mounts": [
-    //     {
-    //         "source": "/var/run/docker.sock",
-    //         "target": "/var/run/docker-host.sock",
-    //         "type": "bind"
-    //     }
-    // ]
-
+	//     {
+	//         "source": "/var/run/docker.sock",
+	//         "target": "/var/run/docker-host.sock",
+	//         "type": "bind"
+	//     }
+	// ]
 	// Configure tool-specific properties.
 	// "customizations": {},
-
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }
