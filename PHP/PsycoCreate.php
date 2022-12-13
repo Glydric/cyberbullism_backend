@@ -6,19 +6,15 @@ $nome = removeSQLDelimitersFrom($_POST['nome']);
 $cognome = removeSQLDelimitersFrom($_POST['cognome']);
 $password = removeSQLDelimitersFrom($_POST['password']);
 
-if(!isValid($nome, $cognome, $email))
-  die("psyco-invalid");
-
-// if ($_POST['Auth_Key_Create_Psyco'] != "24BEC3BFA")
-//   die('');
-
 //controlli generici di input
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
   die("invalid-email");
 
-if (!$password) {
-  dir("empty-password");
-}
+if (!$password)
+  die("empty-password");
+
+if (!isValid($nome, $cognome, $email))
+  die("psyco-invalid");
 
 // controlla che l'utente non esista già
 $result = mysqli_query($conn, "select * from psyco where email='$email' and password='$password'");
