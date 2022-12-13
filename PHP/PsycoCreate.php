@@ -1,12 +1,16 @@
 <?php
 require('config.php');
+require('PsycoCheckAlbo.php');
 $email = removeSQLDelimitersFrom($_POST['email']);
 $nome = removeSQLDelimitersFrom($_POST['nome']);
 $cognome = removeSQLDelimitersFrom($_POST['cognome']);
 $password = removeSQLDelimitersFrom($_POST['password']);
 
-if ($_POST['Auth_Key_Create_Psyco'] != "24BEC3BFA")
-  die('');
+if(!isValid($nome, $cognome, $email))
+  die("psyco-invalid");
+
+// if ($_POST['Auth_Key_Create_Psyco'] != "24BEC3BFA")
+//   die('');
 
 //controlli generici di input
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
