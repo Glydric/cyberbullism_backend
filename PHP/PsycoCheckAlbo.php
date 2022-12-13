@@ -1,7 +1,14 @@
 <?php
 function isValid($nome, $cognome, $email)
 {
+
+    if ($email == "" || $nome == "" || $cognome == "")
+        return FALSE;
+        
     $profileUrl = get_profile_url($nome, $cognome);
+
+    if ($profileUrl == "")
+        return FALSE;
 
     $request = curl_init($profileUrl);
     curl_setopt_array(
@@ -31,7 +38,7 @@ function get_profile_url($nome, $cognome)
         \"ordine\": null,
         \"provincia\": null,
         \"convenzioni\": null,
-        \"limit\": 25
+        \"limit\": 5
     }";
     // \"offset\": 0,
     // \"pageIndex\": 0,
@@ -48,7 +55,12 @@ function get_profile_url($nome, $cognome)
     );
     $reply = curl_exec($request);
     curl_close($request);
-    $user = json_decode($reply, true)["data"][0];
+    $jsonData = json_decode($reply, true);
+
+    if ($jsonData["count"] == 0)
+        return "";
+
+    $user = $jsonData["data"][0];
 
     $profileId = preg_replace('/ /s', '', $user["nome"] . "_" . $user["cognome"] . "_" . $user["idPersona"]);
     return $profileUrl . $profileId;
@@ -70,4 +82,4 @@ function get_email_from($html)
 // if (isValid("cristina", "bamonti", "mariabamonti@psypec.it"))
 //     echo "oK";
 // else
-//     echo "not equals";
+//     echo "not valid";
