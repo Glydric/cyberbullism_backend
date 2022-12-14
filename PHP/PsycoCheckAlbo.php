@@ -1,7 +1,6 @@
 <?php
 function isValid($nome, $cognome, $email)
 {
-
     if ($email == "" || $nome == "" || $cognome == "")
         return FALSE;
 
@@ -9,7 +8,7 @@ function isValid($nome, $cognome, $email)
 
     // Controlla che nome e cognome siano quelli corretti, altrimenti non esce dal ciclo
     do {
-        $profileUrl = get_profile_url($nome, $cognome, $id++);
+        $profileUrl = get_profile_url($nome, $cognome, ++$id);
     } while (!$profileUrl);
 
     $request = curl_init($profileUrl);
@@ -30,9 +29,7 @@ function isValid($nome, $cognome, $email)
 }
 function get_profile_url($nome, $cognome, $id)
 {
-    $limit = $id + 1;
-
-    if ($id < 0) die("Id negativo, non valido");
+    if ($id <= 0) die("Id negativo, non valido");
 
     $url =
         'https://areariservata.psy.it/open-api/albo-nazionale/cerca';
@@ -45,7 +42,7 @@ function get_profile_url($nome, $cognome, $id)
         \"ordine\": null,
         \"provincia\": null,
         \"convenzioni\": null,
-        \"limit\": $limit
+        \"limit\": $id
     }";
     // \"offset\": 0,
     // \"pageIndex\": 0,
@@ -64,15 +61,14 @@ function get_profile_url($nome, $cognome, $id)
     curl_close($request);
 
     $jsonData = json_decode($reply, true);
+    // echo $id . $jsonData["count"] . "\n";
 
-    // controlla che il counter sia maggiore di id, quindi che l'id che inseriamo sia presente
-    // inoltre si presuppone che $id sia > 0 quindi il controllo verifica anche
-    // che counter abbia almeno un elemento
-    echo $id . $jsonData["count"] . "\n";
-    if ($jsonData["count"] == 0 || $jsonData["count"] <= $id)
+    // controlla che il counter sia diverso da 0 e sia maggiore o uguale di id,
+    // quindi che l'id che inseriamo sia usabile
+    if ($jsonData["count"] == 0 || $jsonData["count"] < $id)
         die("psyco-invalid");
 
-    $user = $jsonData["data"][$id];
+    $user = $jsonData["data"][$id - 1];
 
     if (
         strtolower($user["nome"]) != strtolower($nome) ||
@@ -97,7 +93,7 @@ function get_email_from($html)
         ->textContent;
 }
 // isValid($_POST["nome"], $_POST["cognome"], $_POST["email"]);
-if (isValid("cristina", "bamonti", "mariabamonti@psypec.it"))
+if (isValid("maria cristina", "bamonti", "mariabamonti@psypec.it"))
     echo "oK";
 else
     echo "not valid";
