@@ -1,5 +1,5 @@
 <?php
-function isValid($nome, $cognome, $email)
+function checkPsyco($nome, $cognome, $email)
 {
     if ($email == "" || $nome == "" || $cognome == "")
         return FALSE;
@@ -25,7 +25,9 @@ function isValid($nome, $cognome, $email)
         die("some error " . curl_getinfo($request)["http_code"]);
     curl_close($request);
 
-    return strcasecmp($email, get_email_from($reply)) == 0;
+
+    if (strcasecmp($email, get_email_from($reply)) != 0)
+        die("psyco-invalid");
 }
 function get_profile_url($nome, $cognome, $id)
 {
@@ -71,8 +73,8 @@ function get_profile_url($nome, $cognome, $id)
     $user = $jsonData["data"][$id - 1];
 
     if (
-        strtolower($user["nome"]) != strtolower($nome) ||
-        strtolower($user["cognome"]) != strtolower($cognome)
+        strcasecmp($user["nome"], $nome) != 0 ||
+        strcasecmp($user["cognome"], $cognome) != 0
     )
         return FALSE;
 
@@ -93,7 +95,5 @@ function get_email_from($html)
         ->textContent;
 }
 // isValid($_POST["nome"], $_POST["cognome"], $_POST["email"]);
-if (isValid("maria cristina", "bamonti", "mariabamonti@psypec.it"))
-    echo "oK";
-else
-    echo "not valid";
+// checkPsyco("maria cristina", "bamonti", "mariabamonti@psypec.it");
+// echo "oK";

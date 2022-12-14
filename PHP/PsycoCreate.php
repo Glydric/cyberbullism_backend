@@ -1,9 +1,9 @@
 <?php
 require('config.php');
 require('PsycoCheckAlbo.php');
-$email = removeSQLDelimitersFrom($_POST['email']);
 $nome = removeSQLDelimitersFrom($_POST['nome']);
 $cognome = removeSQLDelimitersFrom($_POST['cognome']);
+$email = removeSQLDelimitersFrom($_POST['email']);
 $password = removeSQLDelimitersFrom($_POST['password']);
 
 //controlli generici di input
@@ -13,8 +13,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 if (!$password)
   die("empty-password");
 
-if (!isValid($nome, $cognome, $email))
-  die("psyco-invalid");
+checkPsyco($nome, $cognome, $email);
 
 // controlla che l'utente non esista già
 $result = mysqli_query($conn, "select * from psyco where email='$email' and password='$password'");
