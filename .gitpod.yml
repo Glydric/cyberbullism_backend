@@ -1,9 +1,8 @@
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  # - name: run node
-  #   before: cd nodeWebSocket
-  #   init: npm i
-  #   command: node main.js
+  - name: run PHP server
+    before: cd PHP
+    command: php -S localhost:8000
   - name: run docker node
     command: docker-compose up -d
   # - name: run mysql server
