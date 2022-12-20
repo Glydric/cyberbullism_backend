@@ -1,4 +1,4 @@
-use cyberbullism
+use cyberbullism;
 CREATE TABLE if not exists psyco (
   email varchar(50) NOT NULL primary key,
   nome varchar(50) NOT NULL,
