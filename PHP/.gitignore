@@ -1,0 +1,4 @@
+# This is removed because of the google API key, 
+# it handles the request to get the text gravity from natural language AI
+# gives a result in range 0 2
+GetGravity.php 

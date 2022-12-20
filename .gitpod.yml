@@ -1,27 +1,19 @@
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - name: run node
-    before: cd nodeWebSocket
-    init: npm i
-    command: node main.js
+  # - name: run node
+  #   before: cd nodeWebSocket
+  #   init: npm i
+  #   command: node main.js
+  - name: run docker node
+    command: docker-compose up -d
   # - name: run mysql server
   #   before: cd WS && docker-compose up -d
   #   init: docker exec -i mysql sh -c 'exec mysql -ucyber -pAdminDB02' < cyberbullism.sql
-  # - name: install python requirements
-  #   init: pip install -r WS/requirements.txt && clear
-  #   command: python WS/webSocket.py
   # - name: install php mysql
   #   init: sudo apt install php-mysql -y
-  # - name: start http server
-  #   init: python -m http.server 80
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
-  - port: 3000 # 8080
-    onOpen: open-preview
   - name: websocket
-    port: 80
+    port: 8080
     visibility: public
-  # - name: web http
-  #   port: 80
-  #   visibility: public

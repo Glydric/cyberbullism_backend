@@ -8,7 +8,7 @@ COPY package.json /usr/app
 # install dependencies
 RUN npm i --production
 
-EXPOSE 80
+EXPOSE 8080
 
 # RUN
 CMD ["node","main.js"]

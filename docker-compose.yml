@@ -1,7 +1,7 @@
 version: '3'
 services:
   nodeWS:
-    # image: node
-    build: nodeWebSocket
+    image: node_web_socket
+    build: ./nodeWebSocket
     ports:
       - "8080:8080"
