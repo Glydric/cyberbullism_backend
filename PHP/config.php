@@ -1,8 +1,8 @@
 <?php
-$host = "localhost";
+$host = "localhost:3306";
 $database = "cyberbullism";
 $username = "cyber"; #"admin";
-$password = "";
+$password = "AdminDB02";
 $conn = mysqli_connect($host, $username, $password, $database);
 
 if (mysqli_connect_errno())

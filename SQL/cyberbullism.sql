@@ -26,83 +26,45 @@ CREATE TABLE if not exists messaggio (
 
 delete from messaggio; delete from psyco; delete from utente;
 
-INSERT INTO psyco (email, nome, cognome, password) VALUES
-('mario.aldovini.976@psypec.it', 'mario', 'Aldovini', '2630fabad985e94553fc238db4f4787e6b2dad52fa970564d572b1b08c024fbc'),
-('mario.mazza@psypec.it', 'Mario', 'Mazza', 'ccb711f092ac8ef1805b5045fab7e8a6189cb97ad04565e21b5fbcfc9e542e42'),
-('p@1.it', 'p', '1', '2ad8a7049d7c5511ac254f5f51fe70a046ebd884729056f0fe57f5160d467153'),
-('paolatartaro12@gmail.com', 'paola', 'tartaro', '9e0acae050b45553a76013dfe3602b37d97cea50a791d71d3046bddca0157a64'),
-('annini@psypec.it', 'Alice', 'Annini', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
-('p@2.it', 'p', '1', '2ad8a7049d7c5511ac254f5f51fe70a046ebd884729056f0fe57f5160d467153');
 
-INSERT INTO utente (email, nome, cognome, password) VALUES
-('lorisminetti1997@gmail.com', 'Loris', 'Minetti', '9e0acae050b45553a76013dfe3602b37d97cea50a791d71d3046bddca0157a64'),
-('l@1.it', 'l', '1', '2ad8a7049d7c5511ac254f5f51fe70a046ebd884729056f0fe57f5160d467153'),
-('l@2.it', 'l', '2', '2ad8a7049d7c5511ac254f5f51fe70a046ebd884729056f0fe57f5160d467153'),
-('l@3.it', 'l', '3', '2ad8a7049d7c5511ac254f5f51fe70a046ebd884729056f0fe57f5160d467153'),
-('leo.miglio@outlook.com', 'Leonardo', 'Migliorelli', '8c5205a40dfe79d3a9d89366c333526214a54014c7f28f50abda5f5f8d535a74'),
-('user@user.com', 'user', 'prova', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb'),
-('l@5.it', 'l', '1', '2ad8a7049d7c5511ac254f5f51fe70a046ebd884729056f0fe57f5160d467153'),
-('l@4.it', 'l', '4', '2ad8a7049d7c5511ac254f5f51fe70a046ebd884729056f0fe57f5160d467153');
+INSERT INTO `psyco` (`email`, `nome`, `cognome`, `password`) VALUES
+('p@1.it', 'p', '1', '$2b$10$9ic4zJ8DFwSdl83iq09Io.TLoSPEgRmhgadPTulMxUyAhNLJDV50G');
 
-INSERT INTO messaggio (user_email, psyco_email, testo, data, send_by_user, gravita) VALUES
-('l@1.it', 'p@1.it', 'ciao, come va?', '2022-08-19 11:40:59', true, NULL),
-('l@1.it', 'p@1.it', 'tutto bene per ora però...', '2022-08-24 16:28:40', false, NULL),
-('l@1.it', 'p@2.it', 'ciao anche a te', '2022-08-24 16:29:28', true, NULL),
-('user@user.com', 'p@1.it', 'Ho ricevuto un pugno in bagno stamattina.\nMi vergogno quando sono in classe ora.', '2022-09-20 15:30:56', false, b'00'),
-('l@1.it', 'p@1.it', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tempus iaculis urna id volutpat lacus laoreet non. Ac tincidunt vitae semper quis lectus nulla. Viverra adipiscing at in tellus. Cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla. Lacinia quis vel eros donec ac. Tempus urna et pharetra pharetra massa massa ultricies. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit. Dis parturi', '2022-08-31 12:16:18', true, NULL),
-('l@1.it', 'p@2.it', 'em ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tempus iaculis urna id volutpat lacus laoreet non. Ac tincidunt vitae semper quis lectus nulla. Viverra adipiscing at in tellus. Cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla. Lacinia quis vel eros donec ac. Tempus urna et pharetra pharetra massa massa ultricies. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit. Dis parturi', '2022-08-31 12:19:27', true, NULL),
-('l@1.it', 'p@2.it', 'ciao', '2022-09-02 21:22:28', false, NULL),
-('l@1.it', 'p@1.it', 'wela', '2022-09-02 17:37:39', false, NULL),
-('l@1.it', 'p@1.it', 'yeyeey', '2022-09-02 17:39:14', false, NULL),
-('l@1.it', 'p@1.it', 'messaggio', '2022-09-02 17:39:03', false, NULL),
-('l@1.it', 'p@1.it', 'ok, come stay?', '2022-09-02 17:38:50', false, NULL),
-('l@1.it', 'p@1.it', 'ok', '2022-09-03 10:30:11', false, NULL),
-('l@1.it', 'p@1.it', 'bene tutto funziona', '2022-09-03 10:30:42', false, NULL),
-('l@1.it', 'p@1.it', 'messaggio', '2022-09-05 14:52:35', false, NULL),
-('l@1.it', 'p@1.it', 'ciao', '2022-09-07 12:19:33', false, NULL),
-('l@1.it', 'p@1.it', 'prima segnalazione messaggio', '2022-09-14 11:51:32', false, b'00'),
-('l@1.it', 'p@1.it', 'seconda seg messaggio', '2022-09-14 12:02:59', false, b'00'),
-('l@1.it', 'p@2.it', 'come va?', '2022-09-14 12:45:55', true, NULL),
-('l@1.it', 'p@1.it', 'test con segnalazione personalizzata', '2022-09-19 09:26:06', false, b'01'),
-('l@1.it', 'p@1.it', 'come va', '2022-09-20 17:31:49', true, NULL),
-('l@1.it', 'p@1.it', 'ciao', '2022-09-20 17:31:42', true, NULL),
-('l@1.it', 'annini@psypec.it', 'Voluptas quia ex omnis enim iure dolor consectetur. Facilis et ut aliquam nam quo. Qui sunt tempora ut.\nAd voluptates temporibus velit veniam quis a voluptas. Ea iusto sit saepe qui quo et. Eius corrupti cumque dignissimos cumque consequatur. Necessitatibus magni delectus odit consequatur tempore. Dolorem voluptas ipsum fugit sint sit. Beatae eveniet pariatur et sit ut et.\nFugit aut omnis sed labore neque aliquam. Odio aliquam eius molestias dolorum consequatur facere sunt. Ullam quo enim aliquid quod quis. Repellat non sed distinctio natus in omnis ut. Blanditiis explicabo et dolor.\nEos aut ipsa voluptas recusandae nemo ut amet. Eius ad amet ea molestiae alias. Ut rerum quasi dolor et. Cupiditate quibusdam quae molestiae. Eos enim aliquid pariatur nemo assumenda.\nLaborum dolorum aut sit delectus sunt vel dolorem. Omnis libero qui sint ex dolore id architecto repudiandae. Asperiores praesentium magni libero laudantium maxime quae. Libero autem beatae voluptas ipsa harum et.', '2022-08-12 18:53:53', false, b'00'),
-('l@1.it', 'p@1.it', 'il problema peggiora ', '2022-08-10 16:44:10', false, b'01'),
-('l@1.it', 'annini@psypec.it', 'ho un problema', '2022-08-10 16:34:35', false, b'00'),
-('user@user.com', 'p@1.it', 'ciao', '2022-09-13 19:43:38', false, b'00'),
-('user@user.com', 'p@1.it', 'ciao', '2022-09-19 10:04:55', true, NULL),
-('l@1.it', NULL, 'segnalazione con problema minimo', '2022-09-20 11:50:48', false, b'00'),
-('l@1.it', 'p@1.it', 'nuova segnalazione', '2022-09-20 17:30:12', false, b'00'),
-('l@1.it', 'p@1.it', 'SEGNALAZIONE FINALE', '2022-09-20 12:44:30', false, b'10'),
-('l@1.it', 'p@1.it', 'ciao', '2022-09-20 12:44:52', true, NULL),
-('user@user.com', 'p@1.it', 'sono stato pestato per la 5 volta questo mese.\n', '2022-09-20 15:31:16', false, b'01'),
-('user@user.com', NULL, 'Credo di non trovare più il senso di questa vita. Nessuno apprezza come sono', '2022-09-20 15:31:45', false, b'10'),
-('user@user.com', 'p@1.it', 'ciao', '2022-09-20 15:33:17', true, NULL),
-('user@user.com', 'p@1.it', 'salve, può aiutarmi?', '2022-09-20 15:34:18', false, NULL),
-('user@user.com', 'p@1.it', 'va bene', '2022-09-20 17:06:15', true, NULL),
-('l@1.it', 'p@1.it', 'ok', '2022-09-20 17:07:00', true, NULL),
-('l@1.it', 'p@1.it', 'tutto bene bro', '2022-09-20 17:31:55', false, NULL),
-('l@1.it', 'p@1.it', 'perfetto', '2022-09-20 17:32:04', true, NULL),
-('l@1.it', NULL, 'urgentissimo', '2022-09-21 18:49:08', false, b'00'),
-('l@1.it', 'annini@psypec.it', 'SEGNALAZIONE NON DEFINITA', '2022-09-21 18:50:34', false, b'01'),
-('l@1.it', 'annini@psypec.it', 'mi danno il buongiorno con degli schiaffi e mi pestano appena arrivo a scuola, a merenda mi rubano il cibo ed anche i soldi, suonata l ultima ora mi salutano dandomi 4 schiaffi', '2022-09-21 18:51:47', false, b'10'),
-('l@1.it', 'annini@psypec.it', 'ciao', '2022-09-23 17:32:09', true, NULL),
-('l@1.it', 'p@1.it', 'segnalazione con carattere    un pò strano', '2022-09-22 19:32:29', false, b'01'),
-('l@1.it', 'p@1.it', 'segnalazione con carattere    un pò strano', '2022-09-22 19:32:03', false, b'01'),
-('l@1.it', NULL, 'segnalazione con carattere    un pò strano', '2022-09-22 19:31:08', false, b'01'),
-('l@1.it', 'p@1.it', 'ciao', '2022-09-26 19:58:27', true, NULL),
-('l@1.it', 'p@1.it', 'jj', '2022-09-26 19:59:26', true, NULL),
-('l@1.it', 'p@1.it', 'ciao ', '2022-09-26 19:59:30', true, NULL),
-('l@1.it', 'p@1.it', 'c', '2022-09-26 20:02:29', true, NULL),
-('l@1.it', 'p@1.it', 'c ', '2022-09-26 20:02:31', true, NULL),
-('l@1.it', 'p@1.it', 'ok ora va tutti been', '2022-09-26 20:03:46', true, NULL),
-('l@1.it', 'p@1.it', ' ok ora va tutti been ', '2022-09-26 20:03:53', true, NULL),
-('l@1.it', 'p@1.it', 'ok', '2022-09-26 20:06:06', true, NULL),
-('l@1.it', 'p@1.it', 'probably con spazi', '2022-09-26 20:06:11', true, NULL),
-('l@1.it', 'p@1.it', ' space before and after ', '2022-09-26 20:06:21', true, NULL),
-('l@1.it', 'p@1.it', '', '2022-09-27 12:52:04', false, NULL),
-('l@1.it', 'annini@psypec.it', 'ciao', '2022-09-27 16:49:20', true, NULL),
-('user@user.com', NULL, 'Nessuno mi ascolta quando ho un problema', '2022-09-27 17:39:02', false, b'00');
+
+INSERT INTO `utente` (`email`, `nome`, `cognome`, `password`) VALUES
+('l@1.it', 'luca', 'rossi', '$2b$10$9ic4zJ8DFwSdl83iq09Io.t9Sj9.dj6cYpHxEx6WbcHAefXhEc4aG');
+
+INSERT INTO `messaggio` (`user_email`, `psyco_email`, `testo`, `data`, `send_by_user`, `gravita`) VALUES
+('l@1.it', NULL, 'ho dei problemi con i miei compagni di classe  \n', '2022-11-02 18:31:31', 0, b'10'),
+('l@1.it', 'p@1.it', 'ciao', '2022-11-10 19:01:05', 0, NULL),
+('l@1.it', 'p@1.it', 'prova', '2022-11-10 19:04:33', 0, NULL),
+('l@1.it', 'p@1.it', 'prova', '2022-11-10 19:06:10', 0, NULL),
+('l@1.it', 'p@1.it', 'prova11', '2022-11-10 19:06:18', 0, NULL),
+('l@1.it', 'p@1.it', 'provafinale', '2022-11-10 19:07:28', 0, NULL),
+('l@1.it', 'p@1.it', 'ciao', '2022-11-10 19:25:19', 1, NULL),
+('l@1.it', 'p@1.it', 'ciao', '2022-11-13 22:00:55', 0, NULL),
+('l@1.it', 'p@1.it', 'come va', '2022-11-13 22:00:58', 0, NULL),
+('l@1.it', 'p@1.it', 'a me tutti bene', '2022-11-13 22:01:09', 0, NULL),
+('l@1.it', 'p@1.it', 'hey?', '2022-11-13 22:04:34', 1, NULL),
+('l@1.it', 'p@1.it', 'ora va bene', '2022-11-13 22:09:40', 1, NULL),
+('l@1.it', 'p@1.it', 'hello', '2022-11-13 22:11:56', 0, NULL),
+('l@1.it', 'p@1.it', 'ciao', '2022-11-16 14:59:50', 1, NULL),
+('l@1.it', 'p@1.it', 'hello', '2022-11-16 15:01:09', 0, NULL),
+('l@1.it', 'p@1.it', 'come va?', '2022-11-16 15:01:29', 1, NULL),
+('l@1.it', 'p@1.it', 'come va?', '2022-11-16 15:07:35', 1, NULL),
+('l@1.it', 'p@1.it', 'come va?', '2022-11-16 15:07:56', 1, NULL),
+('l@1.it', 'p@1.it', 'va tutto beneeee', '2022-11-16 15:09:40', 1, NULL),
+('l@1.it', 'p@1.it', 'hello', '2022-11-16 15:18:00', 0, NULL),
+('l@1.it', 'p@1.it', 'ciao', '2022-11-20 00:31:18', 0, NULL),
+('l@1.it', 'p@1.it', 'ciao', '2022-11-20 00:38:42', 0, NULL),
+('l@1.it', NULL, 'ciao ciao ciao', '2022-12-14 10:54:53', 0, b'00'),
+('l@1.it', 'p@1.it', 'hello', '2022-12-20 09:54:39', 0, NULL),
+('l@1.it', NULL, 'Segnalazione di test prima dell’ESAME', '2022-12-20 09:58:06', 0, b'10'),
+('l@1.it', NULL, 'Segnalazione test per noi', '2022-12-20 10:25:51', 0, b'00'),
+('l@1.it', 'p@1.it', 'Come posso aiutarti ', '2022-12-20 10:27:44', 1, NULL),
+('l@1.it', 'p@1.it', 'Mi serve una mano', '2022-12-20 10:28:16', 0, NULL),
+('l@1.it', NULL, 'Mi sento tanto male', '2022-12-20 12:20:21', 0, b'10');
+
 
 DROP VIEW IF EXISTS segnalazioni;
 create view segnalazioni as
