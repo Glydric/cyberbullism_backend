@@ -34,7 +34,7 @@ function serverConnection(conn, req) {
 
     function responseCheck(res) {
         if (res.status != 200) {
-            conn.send(`WebSocket-Error ${res.status}`);
+            console.log(`WebSocket-Error ${res.status}`);
             return
         }
 
