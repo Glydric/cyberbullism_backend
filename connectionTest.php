@@ -1,7 +1,8 @@
 <?php
 
 //this file is used to simple check curl working and connection to other sites
-$request = curl_init('https://www.google.com');
+$url = 'http://example.com';
+$request = curl_init($url);
 curl_setopt_array(
     $request,
     [
@@ -14,6 +15,6 @@ curl_close($request);
 
 $code = curl_getinfo($request)["http_code"];
 if ($code == 200)
-    echo "connection achieved";
+    echo "connection ACHIEVED";
 else
-    echo "connection ERROR " . $code;
+    echo "connection error to " . $url . " with code " . $code;
