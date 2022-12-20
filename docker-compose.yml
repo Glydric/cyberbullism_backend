@@ -5,8 +5,3 @@ services:
     build: ./nodeWebSocket
     ports:
       - "8080:8080"
-  PHP:
-    image: php
-    build: ./PHP
-    ports:
-      - "90:80"
