@@ -27,7 +27,7 @@ function checkPsyco($nome, $cognome, $email)
 
 
     if (strcasecmp($email, get_email_from($reply)) != 0)
-        die("psyco-invalid");
+        die("pec-invalid");
 }
 function get_profile_url($nome, $cognome, $id)
 {
