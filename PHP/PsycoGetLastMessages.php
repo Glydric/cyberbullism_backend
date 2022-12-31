@@ -2,9 +2,8 @@
 require('config.php');
 // get user
 $email = $_POST['email'];
-$password = $_POST['password'];
 
-checkExists("psyco", $conn, $email, $password);
+checkExists("psyco", $conn, $email, $_POST['password']);
 
 // get users
 $query = $conn->prepare(
@@ -29,8 +28,10 @@ WHERE
         psyco_email
     )
     AND
-      psyco_email = '$email'
+      psyco_email = ?
 ");
+$query->bind_param("s", $email);
+$query->execute();
 $result = $query->get_result();
 
 if(!$result)
