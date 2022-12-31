@@ -1,10 +1,10 @@
 <?php
 require('config.php');
 require('PsycoCheckAlbo.php');
-$nome = removeSQLDelimitersFrom($_POST['nome']);
-$cognome = removeSQLDelimitersFrom($_POST['cognome']);
-$email = removeSQLDelimitersFrom($_POST['email']);
-$password = removeSQLDelimitersFrom($_POST['password']);
+$nome = $_POST['nome'];
+$cognome = $_POST['cognome'];
+$email = $_POST['email'];
+$password = $_POST['password'];
 
 //controlli generici di input
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -13,18 +13,34 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 if (!$password)
   die("empty-password");
 
-checkPsyco($nome, $cognome, $email);
+if (!$nome || !$cognome)
+  die("empty-user-info");
 
-// controlla che l'utente non esista già
-$result = mysqli_query($conn, "select * from psyco where email='$email' and password='$password'");
-if (!$result) {
-  echo (mysqli_error($conn));
-}
-if (mysqli_num_rows($result) != 0)
+// innanzitutto controlla che l'utente non esista già
+$query = $conn->prepare("select * from psyco where email= ? and password= ?");
+$query->bind_param("ss",$email,$password);
+$query->execute();
+$result=$query->get_result();
+
+if (!$result) 
+  die($conn->error);
+
+if ($result->num_rows != 0)
   die("email-already-in-use");
+$query->close();
+$result->close();
+
+$query = $conn->prepare("insert into psyco(nome,cognome,email,password) values(?, ?, ?, ?)");
+$query->bind_param("ssss",$nome,$cognome,$email,$password);
+$query->execute();
+
+// Se l'utente non è già presente controlliamo i suoi dati
+// checkPsyco($nome, $cognome, $email);
 
 // inserisce l'utente in quanto non sono stati trovati problemi
-if (!mysqli_query($conn, "insert into psyco(email,nome,cognome,password) values('$email', '$nome', '$cognome', '$password')")) {
-  echo (mysqli_error($conn));
+if (!$query->get_result()) {
+  die($conn->error);
 }
-mysqli_close($conn);
+$query->close();
+$result->close();
+$conn->close();
