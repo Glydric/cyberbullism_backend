@@ -1,13 +1,14 @@
 <?php
 require('config.php');
 // get user
-$email = removeSQLDelimitersFrom($_POST['email']);
-$password = removeSQLDelimitersFrom($_POST['password']);
+$email = $_POST['email'];
+$password = $_POST['password'];
 
 checkExists("psyco", $conn, $email, $password);
 
 // get users
-$psyco_query = "SELECT
+$query = $conn->prepare(
+"SELECT
     user_email AS otherEmail,
     nome,
     cognome,
@@ -29,19 +30,20 @@ WHERE
     )
     AND
       psyco_email = '$email'
-";
-$result = mysqli_query($conn, $psyco_query);
+");
+$result = $query->get_result();
 
-if (!$result) {
-    die(mysqli_error($conn));
-}
+if(!$result)
+    die($conn->error);
 
 $rows = array();
-while ($row = mysqli_fetch_assoc($result)) {
+
+while ($row = $result->fetch_assoc()) {
     $rows[] = $row;
 }
 
 echo json_encode($rows);
 
-mysqli_free_result($result);
-mysqli_close($conn);
+$query->close();
+$result->close();
+$conn->close();
