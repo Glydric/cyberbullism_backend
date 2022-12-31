@@ -2,17 +2,17 @@
 tasks:
   - name: run PHP server
     before: cd PHP
+    init: sudo apt update && sudo apt upgrade -y && sudo apt install php-mysql -y
     command: php -S localhost:8000
   - name: run docker node
-    command: docker-compose up -d
-  # - name: run mysql server
-  #   before: cd WS && docker-compose up -d
-  #   init: docker exec -i mysql sh -c 'exec mysql -ucyber -pAdminDB02' < cyberbullism.sql
-  # - name: install php mysql
-  #   init: sudo apt install php-mysql -y
-
+    before: docker-compose up -d
+    init: docker exec -i mysql sh -c 'exec mysql -ucyber -pAdminDB02' < cyberbullism.sql
+  
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
   - name: websocket
     port: 8080
+    visibility: public
+  - name: php
+    port: 8000
     visibility: public
