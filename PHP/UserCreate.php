@@ -19,7 +19,7 @@ if (mysqli_num_rows($result) != 0)
   die("email-already-in-use");
 
 $query = $conn->prepare("INSERT INTO utente(email,nome,cognome,password) VALUES(?, ?, ?, ?)");
-$query->prepare("ssss", $email, $_POST['nome'], $_POST['cognome'], $password);
+$query->bind_param("ssss", $email, $_POST['nome'], $_POST['cognome'], $password);
 $query->execute();
 
 // inserisce l'utente in quanto non sono stati trovati problemi
