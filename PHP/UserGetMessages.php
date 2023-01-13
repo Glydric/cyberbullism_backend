@@ -24,6 +24,7 @@ WHERE
 ORDER BY DATA
 DESC
 ";
+// bind param not needed as using email
 $result = mysqli_query($conn, $psyco_query);
 
 if (!$result) {

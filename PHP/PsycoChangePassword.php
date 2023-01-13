@@ -1,30 +1,24 @@
 <?php
 require('config.php');
-$email = removeSQLDelimitersFrom($_POST['email']);
-$newPassword = removeSQLDelimitersFrom($_POST['newPassword']);
-$password = removeSQLDelimitersFrom($_POST['password']);
+$email = $_POST['email'];
+$newPassword = $_POST['newPassword'];
+$password = $_POST['password'];
 
 if (!$email) {
   die("empty-email");
 }
-if (!$password) {
+if (!$password || !$newPassword) {
   die("empty-password");
 }
-if (!$newPassword) {
-  die("empty-password");
-}
-$result = mysqli_query($conn, "SELECT * FROM psyco WHERE email = '$email' and password = '$password'");
+checkExists("psyco", $conn, $email, $password);
 
-if (!$result) {
-  echo (mysqli_error($conn));
+$query = $conn->prepare("UPDATE psyco SET password = ? WHERE email = ? AND password = ?");
+$query->bind_param("sss", $newPassword,$email,$password);
+$query->execute();
+
+if (!$query->get_result()) {
+  die($conn->error);
 }
 
-if (mysqli_num_rows($result) > 0) {
-  if (!mysqli_query($conn, "UPDATE psyco SET password = '$newPassword' WHERE email = '$email' AND password = '$password'")) {
-    echo (mysqli_error($conn));
-  }
-} else {
-  die("wrong-password");
-}
-mysqli_free_result($result);
-mysqli_close($conn);
+$result->close();
+$conn->close();

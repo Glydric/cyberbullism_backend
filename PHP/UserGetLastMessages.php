@@ -29,6 +29,7 @@ WHERE
         psyco_email
 ) AND user_email = '$email'
 ";
+// bind param not needed as using only email
 $result = mysqli_query($conn, $query);
 
 if (!$result) {
