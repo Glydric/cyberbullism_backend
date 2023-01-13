@@ -4,15 +4,16 @@ $email = removeSQLDelimitersFrom($_POST['email']);
 $newPassword = removeSQLDelimitersFrom($_POST['newPassword']);
 $password = removeSQLDelimitersFrom($_POST['password']);
 
-if (!$email) {
+if (!$email)
   die("empty-email");
-}
-if (!$password) {
+
+if (!$password)
   die("empty-password");
-}
-if (!$newPassword) {
+
+if (!$newPassword)
   die("empty-password");
-}
+
+  // bind param not needed as using email
 $result = mysqli_query($conn, "select * from utente WHERE email = '$email' and password = '$password'");
 
 if (!$result) {

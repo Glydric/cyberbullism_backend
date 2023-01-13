@@ -14,8 +14,13 @@ $gravita = removeSQLDelimitersFrom($_POST['gravita']);
 if ($gravita == '3')
   $gravita = calcGravity($testo);
 
-$query = "insert into messaggio(user_email, testo, gravita) values('$email', '$testo', $gravita)";
-if (!mysqli_query($conn, $query)) {
-  echo (mysqli_error($conn));
-}
-mysqli_close($conn);
+$query = $conn->prepare("INSERT INTO messaggio(user_email, testo, gravita) VALUES(?, ?, ?)");
+$query->bind_param("ssi", $email, $testo, $gravita);
+$query->execute();
+
+if (!$query->get_result()) 
+  die($conn->error);
+
+$query->close();
+$result->close();
+$conn->close();
