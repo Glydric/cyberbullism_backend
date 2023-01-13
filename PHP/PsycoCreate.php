@@ -16,6 +16,8 @@ if (!$password)
 if (!$nome || !$cognome)
   die("empty-user-info");
 
+checkPsyco($nome, $cognome, $email);
+
 // controlla che l'utente con quella email non esista già
 $result = mysqli_query($conn, "select * from psyco where email='$email'");
 
@@ -28,9 +30,6 @@ if ($result->num_rows != 0)
 $query = $conn->prepare("insert into psyco(nome,cognome,email,password) values(?, ?, ?, ?)");
 $query->bind_param("ssss",$nome,$cognome,$email,$password);
 $query->execute();
-
-// Se l'utente non è già presente controlliamo i suoi dati
-// checkPsyco($nome, $cognome, $email);
 
 // inserisce l'utente in quanto non sono stati trovati problemi
 if (!$query->get_result())
